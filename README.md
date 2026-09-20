@@ -216,10 +216,10 @@ popd
 
 ## 参考
 
-[原版 bash 脚本 make_sing-box_server_ubuntu](https://github.com/yHUJibXnPx/make_sing-box_server_ubuntu)
-[sing-box doc](https://github.com/SagerNet/sing-box)
-[sing-box](https://sing-box.sagernet.org)
-[cloudflared](https://github.com/cloudflare/cloudflared)
+[原版 bash 脚本 make_sing-box_server_ubuntu](https://github.com/yHUJibXnPx/make_sing-box_server_ubuntu)  
+[sing-box doc](https://github.com/SagerNet/sing-box)  
+[sing-box](https://sing-box.sagernet.org)  
+[cloudflared](https://github.com/cloudflare/cloudflared)  
 
 # 声明
 本项目仅作学习交流使用，用于解决生理需求，学习各种姿势，不做任何违法行为。仅供交流学习使用，出现违法问题我负责不了，我也没能力负责，我没工作，也没收入，年纪也大了，你就算灭了我也没用，我也没能力负责。
