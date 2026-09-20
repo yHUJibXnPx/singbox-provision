@@ -1,0 +1,145 @@
+{
+  "log": { "level": "info", "timestamp": true },
+  "dns": {
+    "servers": [
+      { "type": "hosts", "tag": "解析HOSTS_469138946ba5fa",
+        "predefined": {
+          "dns.google": [ "8.8.8.8", "8.8.4.4", "2001:4860:4860::8888", "2001:4860:4860::8844" ],
+          "dns.alidns.com": [ "223.5.5.5", "223.6.6.6", "2400:3200::1", "2400:3200:baba::1" ],
+          "one.one.one.one": [ "1.1.1.1", "1.0.0.1", "2606:4700:4700::1111", "2606:4700:4700::1001" ],
+          "1dot1dot1dot1.cloudflare-dns.com": [ "1.1.1.1", "1.0.0.1", "2606:4700:4700::1111", "2606:4700:4700::1001" ],
+          "cloudflare-dns.com": [ "104.16.249.249", "104.16.248.249", "2606:4700::6810:f8f9", "2606:4700::6810:f9f9" ],
+          "dns.cloudflare.com": [ "104.16.132.229", "104.16.133.229", "2606:4700::6810:84e5", "2606:4700::6810:85e5" ],
+          "dot.pub": [ "1.12.12.12", "120.53.53.53" ],
+          "doh.pub": [ "1.12.12.12", "120.53.53.53" ],
+          "dns.quad9.net": [ "9.9.9.9", "149.112.112.112", "2620:fe::fe", "2620:fe::9" ],
+          "dns.yandex.net": [ "77.88.8.8", "77.88.8.1", "2a02:6b8::feed:ff", "2a02:6b8:0:1::feed:ff" ],
+          "dns.sb": [ "185.222.222.222", "2a09::" ],
+          "dns.umbrella.com": [ "208.67.220.220", "208.67.222.222", "2620:119:35::35", "2620:119:53::53" ],
+          "dns.sse.cisco.com": [ "208.67.220.220", "208.67.222.222", "2620:119:35::35", "2620:119:53::53" ],
+          "engage.cloudflareclient.com": [ "162.159.192.1", "2606:4700:d0::a29f:c001" ]
+        }
+      },
+      { "type": "https", "tag": "解析CLOUDFLAREDNS_469138946ba5fa", "domain_resolver": "解析HOSTS_469138946ba5fa", "server": "cloudflare-dns.com", "path": "/dns-query" },
+      { "type": "https", "tag": "解析GOOGLE_469138946ba5fa", "domain_resolver": "解析HOSTS_469138946ba5fa", "server": "dns.google" }
+    ],
+    "rules": [
+      { "action": "evaluate", "server": "解析HOSTS_469138946ba5fa" },
+      { "match_response": true, "response_rcode": "NOERROR", "action": "respond" },
+      { "rule_set": [ "geosite-category-ads-all", "megamori" ], "action": "predefined", "rcode": "NXDOMAIN" },
+      {
+        "domain": [
+          "books-analytics-events.apple.com",
+          "pagead2.googlesyndication.com",
+          "pagead2.googleadservices.com",
+          "afs.googlesyndication.com",
+          "stats.g.doubleclick.net",
+          "ad.doubleclick.net",
+          "stats.wp.com",
+          "trk.pinterest.com",
+          "ads.yahoo.com",
+          "analytics.query.yahoo.com",
+          "partnerads.ysm.yahoo.com",
+          "api.ad.xiaomi.com",
+          "data.mistat.xiaomi.com",
+          "sdkconfig.ad.xiaomi.com",
+          "business-api.tiktok.com",
+          "grs.hicloud.com"
+        ], "action": "predefined", "rcode": "NXDOMAIN"
+      }
+    ],
+    "final": "解析CLOUDFLAREDNS_469138946ba5fa"
+  },
+  "ntp": { "enabled": true, "interval": "30m0s", "server": "time.cloudflare.com", "server_port": 123 },
+  "http_clients": [
+    { "tag": "全局HTTP客户端路由DEFAULT" },
+    { "tag": "全局HTTP客户端路由DIRECT", "detour": "direct" },
+    { "tag": "全局HTTP客户端路由直连", "detour": "直连_469138946ba5fa" },
+    { "tag": "全局HTTP客户端路由代理", "detour": "代理_469138946ba5fa" }
+  ],
+  "inbounds": [
+    { "type": "hysteria2", "tag": "hysteria2-in", "listen": "::", "listen_port": 28676, "users": [{"password": "d586fe9f28bc0df3cd2bf41d"}], "obfs": { "type": "salamander", "password": "b9968ab186c5eba68d36efe6" }, "tls": { "enabled": true, "server_name": "fpinit.itunes.apple.com", "alpn": ["h3"], "certificate": ["-----BEGIN CERTIFICATE-----","MIIDSTCCAjGgAwIBAgIUBF+n9P51xUT+azjLxKb1mtKBuJQwDQYJKoZIhvcNAQEL","BQAwIjEgMB4GA1UEAwwXZnBpbml0Lml0dW5lcy5hcHBsZS5jb20wHhcNMjYwOTEz","MDkxMDUzWhcNMzYwOTEwMDkxMDUzWjAiMSAwHgYDVQQDDBdmcGluaXQuaXR1bmVz","LmFwcGxlLmNvbTCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBANVm8aPW","9X1wG3UfKNRxPp31JZxoYRxnWeXm5RYSmVaOwfVnPnMNpBnavAO0vDKlTdV/AHWK","uj/W0ufbGmuNeUGsvjo/1Tf2sjcuvlTEsyWyby/Rgqp9mU1/VT6WcqtHF/AqhBF/","krlXlGIf7AOsKpzPjzrms6HfhlAnb8ON5/vOgAeuwp4AigeISRRTnHzTrqs0cQ53","cPmg3dvjitDj+/OZ+cRk8VAkp1efhFWYrRD3FYKwpnGCS6nt09HT9D7ZyGXnXVmQ","sdSlWS2WBhRyWfSYpidBA4zpBZpwtyLnwDEJqeXzxQUe1/UJYS1OFNwdTBydEyI9","jdUym91QebMVVUUCAwEAAaN3MHUwHQYDVR0OBBYEFLtvlUjUNFnoornGvJNlgnjH","gNJAMB8GA1UdIwQYMBaAFLtvlUjUNFnoornGvJNlgnjHgNJAMA8GA1UdEwEB/wQF","MAMBAf8wIgYDVR0RBBswGYIXZnBpbml0Lml0dW5lcy5hcHBsZS5jb20wDQYJKoZI","hvcNAQELBQADggEBADb75GlVWcbCWrohdm6lY6LdCZ6zg2qMltwzVcpJsTzONoxD","3hn1vegt/0+nNM2V9SUCxUWFfr+AyeyanwPwqIDAy9QZB59EByr8P/kjcnrYmbEH","KNxCWqd/nQqPQcyf/C+Hb++J/tsVHsEO6QvclaKEO0l6PEOxS5T/EXo1Vo2d8R40","/Tm8EmqGkDK8O+7sIRtJlLJKm38rf400e2Jqv+prmVdgUNS8EbgG9X2vef89tEgn","yZVjFJygAKgsF19lHhvCJ8GmmG9A487sOlNJAbnwL5g9iiJfx5gbNyFrCbi54N4u","M1SYtylGIE23nuZNdPIoStv0fY/uNIPY8BAvtwk=","-----END CERTIFICATE-----"], "key": ["-----BEGIN PRIVATE KEY-----","MIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQDVZvGj1vV9cBt1","HyjUcT6d9SWcaGEcZ1nl5uUWEplWjsH1Zz5zDaQZ2rwDtLwypU3VfwB1iro/1tLn","2xprjXlBrL46P9U39rI3Lr5UxLMlsm8v0YKqfZlNf1U+lnKrRxfwKoQRf5K5V5Ri","H+wDrCqcz4865rOh34ZQJ2/Djef7zoAHrsKeAIoHiEkUU5x8066rNHEOd3D5oN3b","44rQ4/vzmfnEZPFQJKdXn4RVmK0Q9xWCsKZxgkup7dPR0/Q+2chl511ZkLHUpVkt","lgYUcln0mKYnQQOM6QWacLci58AxCanl88UFHtf1CWEtThTcHUwcnRMiPY3VMpvd","UHmzFVVFAgMBAAECggEALALLGwseHfyc7Q68EPQ6AcGpPBSa0ozOEYgI/wBe92cB","wWbFjlzl1x8xX2JK3fcRklJa+eLefoQDgyXA0SWgOFcz9Ddt9di+8HqHblwSxleC","bs46sIauszjrj7jfdUt4OGPMUP+KdwcE5yfGOQusziJQW8lwipXa0XUQq7f8fAW9","6voAxH+buPF8WL8qiU2V9QchEQ90yFt35+JiiNsQXpvXbFosR8klbsOaQ/6WXHb0","qx7mlAK+cNVc+RReHxvpUs6gcuaVVaE2/M6Dc3rXYsE9hAPIRJ1BMGOwmliWotN5","N6EIGgcz2wnPCaF+gDDDvdZ1+gJ29fdjlN4/Vpl0EQKBgQD5vRLbZGL9lWmXkj+C","Lpwe/6gKip6CneBqmFytyBFTCAoj1cNbAHs915IfqMgpN2UnyTyD/QFOLqJ93FtR","djFsseWwqkUfGPGcJaEE2aCy9d8Mc1o50pwL1maXVIjgqcRAZEiOtOtXPnbCn6C1","SOIr2gyk5aGR5KxAAj1WBxKmxwKBgQDawKXVONnGeBUME8c3xKF9lthGPJ8Dk0fV","AlP7M7/sZHlfIjHm4omRp+Iwe42SkNBCYxfTAFXpL3XN2AzXcsfd9mADLRQcY4rk","FgU2h0uTMN4c0rZLgCmPhCfN3mja6wKDbyPn/j1kVfHQHMgdZya/T6EaDmLXVpuK","+ZJ90A7nkwKBgQCZghsBOGeQsDLDtGXNQ5E7jLJiKGrepuS3IQh22a+sdhilhlQa","r+URUlzDkR/YFfDbz9qe1vnicM/4xWZsYFZpFcC2IzNxtgdtj8O2E3+wAWolYRJo","0IiSzispghDQ6Al1+y6Oaa7vZbniT/Sc+jvr8JAtG+mAoCsw/S9undJdKQKBgFCm","Kf2cgh278/aJ7C7RXcCRtpbejrmguSD9RL0ebSnYOS8ryj4XUyTSQoAhbSaWIVH4","erYeL45TIxmLB+D+vlVFGkzRd9KnmHNS8wURiHlx0NHLlc3sKGZzEMHDt+DOOBUB","Crnjb/rn/Mj/c3/zocNytjCHEUXW9m2cabfc10HlAoGBALWEjdjvYufKlAN5Z6In","aKzU+fNwROWAvG7/lmXiDMFHR4tj9lOQfOUrUekmA6kQHlKU+8pWI3sRLuToDkS/","8SZ/VNJ4huTvueMMoz1s1fkSvr0rjrWrBruBq8AY+Lo5hviJSJsh0t132azVni1S","K4eLvZP0e0PafOq0ItLF0I3c","-----END PRIVATE KEY-----"] } }, 
+    { "type": "tuic", "tag": "tuic-in", "listen": "::", "listen_port": 29838, "users": [{"uuid": "ac988576-6d91-4a57-9f4a-06f6200cbf9b","password": "c008f3a5b5e00a154e1f24b2"}], "congestion_control": "bbr", "tls": { "enabled": true, "server_name": "fpinit.itunes.apple.com", "alpn": ["h3"], "certificate": ["-----BEGIN CERTIFICATE-----","MIIDSTCCAjGgAwIBAgIUBF+n9P51xUT+azjLxKb1mtKBuJQwDQYJKoZIhvcNAQEL","BQAwIjEgMB4GA1UEAwwXZnBpbml0Lml0dW5lcy5hcHBsZS5jb20wHhcNMjYwOTEz","MDkxMDUzWhcNMzYwOTEwMDkxMDUzWjAiMSAwHgYDVQQDDBdmcGluaXQuaXR1bmVz","LmFwcGxlLmNvbTCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBANVm8aPW","9X1wG3UfKNRxPp31JZxoYRxnWeXm5RYSmVaOwfVnPnMNpBnavAO0vDKlTdV/AHWK","uj/W0ufbGmuNeUGsvjo/1Tf2sjcuvlTEsyWyby/Rgqp9mU1/VT6WcqtHF/AqhBF/","krlXlGIf7AOsKpzPjzrms6HfhlAnb8ON5/vOgAeuwp4AigeISRRTnHzTrqs0cQ53","cPmg3dvjitDj+/OZ+cRk8VAkp1efhFWYrRD3FYKwpnGCS6nt09HT9D7ZyGXnXVmQ","sdSlWS2WBhRyWfSYpidBA4zpBZpwtyLnwDEJqeXzxQUe1/UJYS1OFNwdTBydEyI9","jdUym91QebMVVUUCAwEAAaN3MHUwHQYDVR0OBBYEFLtvlUjUNFnoornGvJNlgnjH","gNJAMB8GA1UdIwQYMBaAFLtvlUjUNFnoornGvJNlgnjHgNJAMA8GA1UdEwEB/wQF","MAMBAf8wIgYDVR0RBBswGYIXZnBpbml0Lml0dW5lcy5hcHBsZS5jb20wDQYJKoZI","hvcNAQELBQADggEBADb75GlVWcbCWrohdm6lY6LdCZ6zg2qMltwzVcpJsTzONoxD","3hn1vegt/0+nNM2V9SUCxUWFfr+AyeyanwPwqIDAy9QZB59EByr8P/kjcnrYmbEH","KNxCWqd/nQqPQcyf/C+Hb++J/tsVHsEO6QvclaKEO0l6PEOxS5T/EXo1Vo2d8R40","/Tm8EmqGkDK8O+7sIRtJlLJKm38rf400e2Jqv+prmVdgUNS8EbgG9X2vef89tEgn","yZVjFJygAKgsF19lHhvCJ8GmmG9A487sOlNJAbnwL5g9iiJfx5gbNyFrCbi54N4u","M1SYtylGIE23nuZNdPIoStv0fY/uNIPY8BAvtwk=","-----END CERTIFICATE-----"], "key": ["-----BEGIN PRIVATE KEY-----","MIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQDVZvGj1vV9cBt1","HyjUcT6d9SWcaGEcZ1nl5uUWEplWjsH1Zz5zDaQZ2rwDtLwypU3VfwB1iro/1tLn","2xprjXlBrL46P9U39rI3Lr5UxLMlsm8v0YKqfZlNf1U+lnKrRxfwKoQRf5K5V5Ri","H+wDrCqcz4865rOh34ZQJ2/Djef7zoAHrsKeAIoHiEkUU5x8066rNHEOd3D5oN3b","44rQ4/vzmfnEZPFQJKdXn4RVmK0Q9xWCsKZxgkup7dPR0/Q+2chl511ZkLHUpVkt","lgYUcln0mKYnQQOM6QWacLci58AxCanl88UFHtf1CWEtThTcHUwcnRMiPY3VMpvd","UHmzFVVFAgMBAAECggEALALLGwseHfyc7Q68EPQ6AcGpPBSa0ozOEYgI/wBe92cB","wWbFjlzl1x8xX2JK3fcRklJa+eLefoQDgyXA0SWgOFcz9Ddt9di+8HqHblwSxleC","bs46sIauszjrj7jfdUt4OGPMUP+KdwcE5yfGOQusziJQW8lwipXa0XUQq7f8fAW9","6voAxH+buPF8WL8qiU2V9QchEQ90yFt35+JiiNsQXpvXbFosR8klbsOaQ/6WXHb0","qx7mlAK+cNVc+RReHxvpUs6gcuaVVaE2/M6Dc3rXYsE9hAPIRJ1BMGOwmliWotN5","N6EIGgcz2wnPCaF+gDDDvdZ1+gJ29fdjlN4/Vpl0EQKBgQD5vRLbZGL9lWmXkj+C","Lpwe/6gKip6CneBqmFytyBFTCAoj1cNbAHs915IfqMgpN2UnyTyD/QFOLqJ93FtR","djFsseWwqkUfGPGcJaEE2aCy9d8Mc1o50pwL1maXVIjgqcRAZEiOtOtXPnbCn6C1","SOIr2gyk5aGR5KxAAj1WBxKmxwKBgQDawKXVONnGeBUME8c3xKF9lthGPJ8Dk0fV","AlP7M7/sZHlfIjHm4omRp+Iwe42SkNBCYxfTAFXpL3XN2AzXcsfd9mADLRQcY4rk","FgU2h0uTMN4c0rZLgCmPhCfN3mja6wKDbyPn/j1kVfHQHMgdZya/T6EaDmLXVpuK","+ZJ90A7nkwKBgQCZghsBOGeQsDLDtGXNQ5E7jLJiKGrepuS3IQh22a+sdhilhlQa","r+URUlzDkR/YFfDbz9qe1vnicM/4xWZsYFZpFcC2IzNxtgdtj8O2E3+wAWolYRJo","0IiSzispghDQ6Al1+y6Oaa7vZbniT/Sc+jvr8JAtG+mAoCsw/S9undJdKQKBgFCm","Kf2cgh278/aJ7C7RXcCRtpbejrmguSD9RL0ebSnYOS8ryj4XUyTSQoAhbSaWIVH4","erYeL45TIxmLB+D+vlVFGkzRd9KnmHNS8wURiHlx0NHLlc3sKGZzEMHDt+DOOBUB","Crnjb/rn/Mj/c3/zocNytjCHEUXW9m2cabfc10HlAoGBALWEjdjvYufKlAN5Z6In","aKzU+fNwROWAvG7/lmXiDMFHR4tj9lOQfOUrUekmA6kQHlKU+8pWI3sRLuToDkS/","8SZ/VNJ4huTvueMMoz1s1fkSvr0rjrWrBruBq8AY+Lo5hviJSJsh0t132azVni1S","K4eLvZP0e0PafOq0ItLF0I3c","-----END PRIVATE KEY-----"] } }, 
+    { "type": "vless", "tag": "vless-in", "listen": "::", "listen_port": 28676, "users": [{"name": "","uuid": "0c3d89de-16e6-441a-ae98-a5bb2519054f","flow": "xtls-rprx-vision"}], "tls": { "enabled": true, "server_name": "fpinit.itunes.apple.com", "reality": { "enabled": true, "handshake": {"server": "fpinit.itunes.apple.com","server_port": 443}, "private_key": "SDdwpeJYH66c0FdQeAAwlEVJla1SN12m0Q78EMLYxlA", "short_id": ["3dee80b8","b699460c6478db","90fcdee9","281affca91","693fb01118","ed52","1e2d4fe9","d00360153e"] } } }, 
+    { "type": "trojan", "tag": "trojan-in", "listen": "::", "listen_port": 20510, "users": [{"name": "","password": "02220ac91cbf4cc6833daed4"}], "tls": { "enabled": true, "server_name": "fpinit.itunes.apple.com", "reality": { "enabled": true, "handshake": {"server": "fpinit.itunes.apple.com","server_port": 443}, "private_key": "SDdwpeJYH66c0FdQeAAwlEVJla1SN12m0Q78EMLYxlA", "short_id": ["8079125c7373","bd4852","d5df4656681f45","2abe34","f4f4","c0159e9599c3","02027becce","f61217087b832b"] } } }, 
+    { "type": "anytls", "tag": "anytls-in", "listen": "::", "listen_port": 30735, "tls": { "enabled": true, "server_name": "fpinit.itunes.apple.com", "reality": { "enabled": true, "handshake": {"server": "fpinit.itunes.apple.com","server_port": 443}, "private_key": "SDdwpeJYH66c0FdQeAAwlEVJla1SN12m0Q78EMLYxlA", "short_id": ["98d7c390","d972753ead73d620","565fab93f4ae","d8624a674e62","8c60c7fd","dd4d591e"] } }, "users": [{"name": "anyuser","password": "b6f55e91828f772fe173ef65"}], "padding_scheme": [
+  "stop=7",
+  "0=22-22",
+  "1=52-52",
+  "2=60-60",
+  "3=26-26",
+  "4=158-380",
+  "5=286-406,c,451-631,c,779-999",
+  "6=9-9,585-835",
+  "7=685-985",
+  "8=785-1085,c,1029-1329",
+  "9=885-1185,c,977-1229",
+  "10=12-12,985-1385"
+] }, 
+    { "type": "vmess", "tag": "vmess-reality-in", "listen": "::", "listen_port": 44661, "users": [{"name": "","uuid": "df1eb635-ae3f-4d54-90a7-9e13d2cadb8e"}], "tls": { "enabled": true, "server_name": "fpinit.itunes.apple.com", "reality": { "enabled": true, "handshake": {"server": "fpinit.itunes.apple.com","server_port": 443}, "private_key": "SDdwpeJYH66c0FdQeAAwlEVJla1SN12m0Q78EMLYxlA", "short_id": ["ce72d1d3","6d1a80","8843d89b","f12588","ce35","3404","6c8a946526b0","ad8e846f88ee"] } } }, 
+    { "type": "vmess", "tag": "vmess-ws-tls-in", "listen": "::", "listen_port": 29838, "users": [{"name": "","uuid": "8f9d97b7-bd2f-47b5-a873-d1536cf58dc7"}], "tls": { "enabled": true, "server_name": "fpinit.itunes.apple.com", "alpn": ["http/1.1"], "certificate": ["-----BEGIN CERTIFICATE-----","MIIDSTCCAjGgAwIBAgIUBF+n9P51xUT+azjLxKb1mtKBuJQwDQYJKoZIhvcNAQEL","BQAwIjEgMB4GA1UEAwwXZnBpbml0Lml0dW5lcy5hcHBsZS5jb20wHhcNMjYwOTEz","MDkxMDUzWhcNMzYwOTEwMDkxMDUzWjAiMSAwHgYDVQQDDBdmcGluaXQuaXR1bmVz","LmFwcGxlLmNvbTCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBANVm8aPW","9X1wG3UfKNRxPp31JZxoYRxnWeXm5RYSmVaOwfVnPnMNpBnavAO0vDKlTdV/AHWK","uj/W0ufbGmuNeUGsvjo/1Tf2sjcuvlTEsyWyby/Rgqp9mU1/VT6WcqtHF/AqhBF/","krlXlGIf7AOsKpzPjzrms6HfhlAnb8ON5/vOgAeuwp4AigeISRRTnHzTrqs0cQ53","cPmg3dvjitDj+/OZ+cRk8VAkp1efhFWYrRD3FYKwpnGCS6nt09HT9D7ZyGXnXVmQ","sdSlWS2WBhRyWfSYpidBA4zpBZpwtyLnwDEJqeXzxQUe1/UJYS1OFNwdTBydEyI9","jdUym91QebMVVUUCAwEAAaN3MHUwHQYDVR0OBBYEFLtvlUjUNFnoornGvJNlgnjH","gNJAMB8GA1UdIwQYMBaAFLtvlUjUNFnoornGvJNlgnjHgNJAMA8GA1UdEwEB/wQF","MAMBAf8wIgYDVR0RBBswGYIXZnBpbml0Lml0dW5lcy5hcHBsZS5jb20wDQYJKoZI","hvcNAQELBQADggEBADb75GlVWcbCWrohdm6lY6LdCZ6zg2qMltwzVcpJsTzONoxD","3hn1vegt/0+nNM2V9SUCxUWFfr+AyeyanwPwqIDAy9QZB59EByr8P/kjcnrYmbEH","KNxCWqd/nQqPQcyf/C+Hb++J/tsVHsEO6QvclaKEO0l6PEOxS5T/EXo1Vo2d8R40","/Tm8EmqGkDK8O+7sIRtJlLJKm38rf400e2Jqv+prmVdgUNS8EbgG9X2vef89tEgn","yZVjFJygAKgsF19lHhvCJ8GmmG9A487sOlNJAbnwL5g9iiJfx5gbNyFrCbi54N4u","M1SYtylGIE23nuZNdPIoStv0fY/uNIPY8BAvtwk=","-----END CERTIFICATE-----"], "key": ["-----BEGIN PRIVATE KEY-----","MIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQDVZvGj1vV9cBt1","HyjUcT6d9SWcaGEcZ1nl5uUWEplWjsH1Zz5zDaQZ2rwDtLwypU3VfwB1iro/1tLn","2xprjXlBrL46P9U39rI3Lr5UxLMlsm8v0YKqfZlNf1U+lnKrRxfwKoQRf5K5V5Ri","H+wDrCqcz4865rOh34ZQJ2/Djef7zoAHrsKeAIoHiEkUU5x8066rNHEOd3D5oN3b","44rQ4/vzmfnEZPFQJKdXn4RVmK0Q9xWCsKZxgkup7dPR0/Q+2chl511ZkLHUpVkt","lgYUcln0mKYnQQOM6QWacLci58AxCanl88UFHtf1CWEtThTcHUwcnRMiPY3VMpvd","UHmzFVVFAgMBAAECggEALALLGwseHfyc7Q68EPQ6AcGpPBSa0ozOEYgI/wBe92cB","wWbFjlzl1x8xX2JK3fcRklJa+eLefoQDgyXA0SWgOFcz9Ddt9di+8HqHblwSxleC","bs46sIauszjrj7jfdUt4OGPMUP+KdwcE5yfGOQusziJQW8lwipXa0XUQq7f8fAW9","6voAxH+buPF8WL8qiU2V9QchEQ90yFt35+JiiNsQXpvXbFosR8klbsOaQ/6WXHb0","qx7mlAK+cNVc+RReHxvpUs6gcuaVVaE2/M6Dc3rXYsE9hAPIRJ1BMGOwmliWotN5","N6EIGgcz2wnPCaF+gDDDvdZ1+gJ29fdjlN4/Vpl0EQKBgQD5vRLbZGL9lWmXkj+C","Lpwe/6gKip6CneBqmFytyBFTCAoj1cNbAHs915IfqMgpN2UnyTyD/QFOLqJ93FtR","djFsseWwqkUfGPGcJaEE2aCy9d8Mc1o50pwL1maXVIjgqcRAZEiOtOtXPnbCn6C1","SOIr2gyk5aGR5KxAAj1WBxKmxwKBgQDawKXVONnGeBUME8c3xKF9lthGPJ8Dk0fV","AlP7M7/sZHlfIjHm4omRp+Iwe42SkNBCYxfTAFXpL3XN2AzXcsfd9mADLRQcY4rk","FgU2h0uTMN4c0rZLgCmPhCfN3mja6wKDbyPn/j1kVfHQHMgdZya/T6EaDmLXVpuK","+ZJ90A7nkwKBgQCZghsBOGeQsDLDtGXNQ5E7jLJiKGrepuS3IQh22a+sdhilhlQa","r+URUlzDkR/YFfDbz9qe1vnicM/4xWZsYFZpFcC2IzNxtgdtj8O2E3+wAWolYRJo","0IiSzispghDQ6Al1+y6Oaa7vZbniT/Sc+jvr8JAtG+mAoCsw/S9undJdKQKBgFCm","Kf2cgh278/aJ7C7RXcCRtpbejrmguSD9RL0ebSnYOS8ryj4XUyTSQoAhbSaWIVH4","erYeL45TIxmLB+D+vlVFGkzRd9KnmHNS8wURiHlx0NHLlc3sKGZzEMHDt+DOOBUB","Crnjb/rn/Mj/c3/zocNytjCHEUXW9m2cabfc10HlAoGBALWEjdjvYufKlAN5Z6In","aKzU+fNwROWAvG7/lmXiDMFHR4tj9lOQfOUrUekmA6kQHlKU+8pWI3sRLuToDkS/","8SZ/VNJ4huTvueMMoz1s1fkSvr0rjrWrBruBq8AY+Lo5hviJSJsh0t132azVni1S","K4eLvZP0e0PafOq0ItLF0I3c","-----END PRIVATE KEY-----"] }, "transport": { "type": "ws", "path": "/f63d92c6a6f0", "headers": {"Host": "fpinit.itunes.apple.com"}, "max_early_data": 2560, "early_data_header_name": "Sec-WebSocket-Protocol" } }, 
+    { "type": "vless", "tag": "vless-ws-in", "listen": "::", "listen_port": 42969, "users": [{"name": "","uuid": "823c1c2d-2e5c-41a1-b3b1-dd20f5382cfd"}], "transport": { "type": "ws", "path": "/5b25d2b14a4a", "max_early_data": 2560, "early_data_header_name": "Sec-WebSocket-Protocol" } }
+  ],
+  "outbounds": [
+    { "type": "direct", "tag": "直连_469138946ba5fa" },
+    { "type": "selector", "tag": "代理_469138946ba5fa", "outbounds": [ "直连_469138946ba5fa" ] }
+  ],
+  "route": {
+    "rules": [
+      { "protocol": "dns", "action": "hijack-dns" },
+      { "port": 53, "action": "hijack-dns" },
+      {
+        "process_name": [
+          "sing-box.exe",
+          "sing-box",
+          "io.nekohasekai.sfa"
+        ],
+        "outbound": "代理_469138946ba5fa"
+      },
+      {
+        "rule_set": [ "geosite-category-ads-all", "megamori" ],
+        "action": "reject"
+      },
+      {
+        "domain": [
+          "books-analytics-events.apple.com",
+          "pagead2.googlesyndication.com",
+          "pagead2.googleadservices.com",
+          "afs.googlesyndication.com",
+          "stats.g.doubleclick.net",
+          "ad.doubleclick.net",
+          "stats.wp.com",
+          "trk.pinterest.com",
+          "ads.yahoo.com",
+          "analytics.query.yahoo.com",
+          "partnerads.ysm.yahoo.com",
+          "api.ad.xiaomi.com",
+          "data.mistat.xiaomi.com",
+          "sdkconfig.ad.xiaomi.com",
+          "business-api.tiktok.com",
+          "grs.hicloud.com"
+        ], "action": "reject"
+      },
+      {
+        "inbound": [
+          "hysteria2-in",
+          "tuic-in",
+          "vless-in",
+          "trojan-in",
+          "anytls-in",
+          "vmess-reality-in",
+          "vmess-ws-tls-in",
+          "vless-ws-in"
+        ], "action": "sniff"
+      }
+    ],
+    "rule_set": [
+      { "type": "remote", "tag": "geosite-category-ads-all", "format": "binary", "url": "https://github.com/SagerNet/sing-geosite/raw/refs/heads/rule-set/geosite-category-ads-all.srs", "http_client": "全局HTTP客户端路由DEFAULT", "update_interval": "24h0m0s" },
+      { "type": "remote", "tag": "megamori", "format": "binary", "url": "https://github.com/neomikanagi/megamori/raw/refs/heads/main/megamori.srs", "http_client": "全局HTTP客户端路由DEFAULT", "update_interval": "24h0m0s" }
+    ],
+    "final": "代理_469138946ba5fa",
+    "auto_detect_interface": true,
+    "default_domain_resolver": "解析GOOGLE_469138946ba5fa",
+    "default_http_client": "全局HTTP客户端路由DEFAULT"
+  }
+}

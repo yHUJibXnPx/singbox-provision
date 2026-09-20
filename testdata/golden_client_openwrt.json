@@ -1,0 +1,859 @@
+{
+  "log": {
+    "level": "warn",
+    "timestamp": true
+  },
+  "dns": {
+    "servers": [
+      {
+        "type": "hosts",
+        "tag": "解析HOSTS_469138946ba5fa",
+        "predefined": {
+          "dns.google": [
+            "8.8.8.8",
+            "8.8.4.4",
+            "2001:4860:4860::8888",
+            "2001:4860:4860::8844"
+          ],
+          "dns.alidns.com": [
+            "223.5.5.5",
+            "223.6.6.6",
+            "2400:3200::1",
+            "2400:3200:baba::1"
+          ],
+          "one.one.one.one": [
+            "1.1.1.1",
+            "1.0.0.1",
+            "2606:4700:4700::1111",
+            "2606:4700:4700::1001"
+          ],
+          "1dot1dot1dot1.cloudflare-dns.com": [
+            "1.1.1.1",
+            "1.0.0.1",
+            "2606:4700:4700::1111",
+            "2606:4700:4700::1001"
+          ],
+          "cloudflare-dns.com": [
+            "1.1.1.1",
+            "1.0.0.1",
+            "104.16.249.249",
+            "104.16.248.249",
+            "2606:4700::6810:f8f9",
+            "2606:4700::6810:f9f9"
+          ],
+          "dns.cloudflare.com": [
+            "104.16.132.229",
+            "104.16.133.229",
+            "2606:4700::6810:84e5",
+            "2606:4700::6810:85e5"
+          ],
+          "dot.pub": [
+            "1.12.12.12",
+            "120.53.53.53"
+          ],
+          "doh.pub": [
+            "1.12.12.12",
+            "120.53.53.53"
+          ],
+          "dns.quad9.net": [
+            "9.9.9.9",
+            "149.112.112.112",
+            "2620:fe::fe",
+            "2620:fe::9"
+          ],
+          "dns.yandex.net": [
+            "77.88.8.8",
+            "77.88.8.1",
+            "2a02:6b8::feed:ff",
+            "2a02:6b8:0:1::feed:ff"
+          ],
+          "dns.sb": [
+            "185.222.222.222",
+            "2a09::"
+          ],
+          "dns.umbrella.com": [
+            "208.67.220.220",
+            "208.67.222.222",
+            "2620:119:35::35",
+            "2620:119:53::53"
+          ],
+          "dns.sse.cisco.com": [
+            "208.67.220.220",
+            "208.67.222.222",
+            "2620:119:35::35",
+            "2620:119:53::53"
+          ],
+          "engage.cloudflareclient.com": [
+            "162.159.192.1",
+            "2606:4700:d0::a29f:c001"
+          ]
+        }
+      },
+      {
+        "type": "https",
+        "tag": "解析ALIDNS_469138946ba5fa",
+        "domain_resolver": "解析HOSTS_469138946ba5fa",
+        "server": "dns.alidns.com",
+        "path": "/dns-query"
+      },
+      {
+        "type": "https",
+        "tag": "解析DOH_469138946ba5fa",
+        "domain_resolver": "解析HOSTS_469138946ba5fa",
+        "server": "doh.pub",
+        "path": "/dns-query"
+      },
+      {
+        "type": "https",
+        "tag": "解析CLOUDFLAREDNS_469138946ba5fa",
+        "detour": "代理_469138946ba5fa",
+        "domain_resolver": "解析HOSTS_469138946ba5fa",
+        "server": "cloudflare-dns.com",
+        "path": "/dns-query"
+      },
+      {
+        "type": "https",
+        "tag": "解析GOOGLE_469138946ba5fa",
+        "detour": "代理_469138946ba5fa",
+        "domain_resolver": "解析HOSTS_469138946ba5fa",
+        "server": "dns.google",
+        "path": "/dns-query"
+      },
+      {
+        "type": "fakeip",
+        "tag": "解析FAKEIP_469138946ba5fa",
+        "inet4_range": "198.18.0.0/15",
+        "inet6_range": "fc00::/18"
+      }
+    ],
+    "rules": [
+      {
+        "action": "evaluate",
+        "server": "解析HOSTS_469138946ba5fa"
+      },
+      {
+        "match_response": true,
+        "response_rcode": "NOERROR",
+        "action": "respond"
+      },
+      {
+        "rule_set": [
+          "geosite-category-ads-all",
+          "megamori"
+        ],
+        "action": "predefined",
+        "rcode": "NXDOMAIN"
+      },
+      {
+        "domain": [
+          "books-analytics-events.apple.com",
+          "pagead2.googlesyndication.com",
+          "pagead2.googleadservices.com",
+          "afs.googlesyndication.com",
+          "stats.g.doubleclick.net",
+          "ad.doubleclick.net",
+          "stats.wp.com",
+          "trk.pinterest.com",
+          "ads.yahoo.com",
+          "analytics.query.yahoo.com",
+          "partnerads.ysm.yahoo.com",
+          "api.ad.xiaomi.com",
+          "data.mistat.xiaomi.com",
+          "sdkconfig.ad.xiaomi.com",
+          "business-api.tiktok.com",
+          "grs.hicloud.com"
+        ],
+        "action": "predefined",
+        "rcode": "NXDOMAIN"
+      },
+      {
+        "rule_set": [
+          "geosite-private",
+          "geosite-cn"
+        ],
+        "server": "解析ALIDNS_469138946ba5fa"
+      },
+      {
+        "rule_set": "geosite-duolingo",
+        "server": "解析CLOUDFLAREDNS_469138946ba5fa"
+      },
+      {
+        "rule_set": "geosite-openai",
+        "server": "解析CLOUDFLAREDNS_469138946ba5fa"
+      },
+      {
+        "rule_set": "geosite-geolocation-!cn",
+        "server": "解析CLOUDFLAREDNS_469138946ba5fa"
+      },
+      {
+        "query_type": [
+          "A",
+          "AAAA"
+        ],
+        "server": "解析FAKEIP_469138946ba5fa"
+      }
+    ],
+    "final": "解析CLOUDFLAREDNS_469138946ba5fa",
+    "strategy": "prefer_ipv4",
+    "reverse_mapping": true,
+    "cache_capacity": 4096
+  },
+  "ntp": {
+    "enabled": true,
+    "interval": "30m0s",
+    "server": "ntp.aliyun.com",
+    "server_port": 123
+  },
+  "http_clients": [
+    {
+      "tag": "全局HTTP客户端路由DEFAULT"
+    },
+    {
+      "tag": "全局HTTP客户端路由DIRECT",
+      "detour": "direct"
+    },
+    {
+      "tag": "全局HTTP客户端路由直连",
+      "detour": "直连_469138946ba5fa"
+    },
+    {
+      "tag": "全局HTTP客户端路由代理",
+      "detour": "代理_469138946ba5fa"
+    }
+  ],
+  "inbounds": [
+    {
+      "type": "mixed",
+      "tag": "混合入站_469138946ba5fa",
+      "listen": "0.0.0.0",
+      "listen_port": 7890
+    },
+    {
+      "type": "tun",
+      "tag": "TUN入站_469138946ba5fa",
+      "interface_name": "tun0",
+      "auto_route": true,
+      "strict_route": false,
+      "stack": "mixed",
+      "address": [
+        "172.19.0.1/30",
+        "fdfe:dcba:9876::1/126"
+      ],
+      "platform": {
+        "http_proxy": {
+          "enabled": true,
+          "server": "0.0.0.0",
+          "server_port": 7890
+        }
+      },
+      "endpoint_independent_nat": true
+    }
+  ],
+  "outbounds": [
+    {
+      "type": "direct",
+      "tag": "直连_469138946ba5fa"
+    },
+    {
+      "type": "selector",
+      "tag": "代理_469138946ba5fa",
+      "outbounds": [
+        "自动_469138946ba5fa",
+        "手动_469138946ba5fa",
+        "直连_469138946ba5fa",
+        "台湾_469138946ba5fa",
+        "新加坡_469138946ba5fa",
+        "日本_469138946ba5fa",
+        "美国_469138946ba5fa",
+        "韩国_469138946ba5fa",
+        "香港_469138946ba5fa",
+        "德国_469138946ba5fa",
+        "英国_469138946ba5fa",
+        "加拿大_469138946ba5fa",
+        "澳大利亚_469138946ba5fa",
+        "法国_469138946ba5fa",
+        "荷兰_469138946ba5fa"
+      ]
+    },
+    {
+      "type": "urltest",
+      "tag": "自动_469138946ba5fa",
+      "outbounds": [
+        "美国vless-out-70e40d1652f14dd3900d7fcc7dff2681",
+        "美国trojan-out-ed6d528caac3426fbb8c7b2ac2b6ca85",
+        "美国anytls-out-00da58635de04cf2b15dc16533490b50",
+        "美国vmess-reality-out-459e0952630f496193e8b35e6650a827",
+        "美国vmess-ws-tls-out-7d58de79ff9b4b48a078676cef1d4c6e",
+        "美国vless-ws-out-4f54d00929834ea1bf89c9620eabb2e2"
+      ],
+      "url": "http://cp.cloudflare.com/generate_204",
+      "interval": "10m0s",
+      "tolerance": 100
+    },
+    {
+      "type": "selector",
+      "tag": "手动_469138946ba5fa",
+      "outbounds": [
+        "美国tuic-out-81671726589f49f38af0b825ad5c5070",
+        "美国hysteria2-out-e6f7f413b8044269a680bff7a1c8860c",
+        "美国vless-out-70e40d1652f14dd3900d7fcc7dff2681",
+        "美国trojan-out-ed6d528caac3426fbb8c7b2ac2b6ca85",
+        "美国anytls-out-00da58635de04cf2b15dc16533490b50",
+        "美国vmess-reality-out-459e0952630f496193e8b35e6650a827",
+        "美国vmess-ws-tls-out-7d58de79ff9b4b48a078676cef1d4c6e",
+        "美国vless-ws-out-4f54d00929834ea1bf89c9620eabb2e2"
+      ]
+    },
+    {
+      "type": "selector",
+      "tag": "智能_469138946ba5fa",
+      "outbounds": [
+        "自动_469138946ba5fa",
+        "手动_469138946ba5fa",
+        "直连_469138946ba5fa",
+        "台湾_469138946ba5fa",
+        "新加坡_469138946ba5fa",
+        "日本_469138946ba5fa",
+        "美国_469138946ba5fa",
+        "韩国_469138946ba5fa",
+        "香港_469138946ba5fa",
+        "德国_469138946ba5fa",
+        "英国_469138946ba5fa",
+        "加拿大_469138946ba5fa",
+        "澳大利亚_469138946ba5fa",
+        "法国_469138946ba5fa",
+        "荷兰_469138946ba5fa"
+      ]
+    },
+    {
+      "type": "urltest",
+      "tag": "台湾_469138946ba5fa",
+      "outbounds": [
+        "直连_469138946ba5fa"
+      ],
+      "url": "http://cp.cloudflare.com/generate_204",
+      "interval": "10m0s",
+      "tolerance": 100
+    },
+    {
+      "type": "urltest",
+      "tag": "新加坡_469138946ba5fa",
+      "outbounds": [
+        "直连_469138946ba5fa"
+      ],
+      "url": "http://cp.cloudflare.com/generate_204",
+      "interval": "10m0s",
+      "tolerance": 100
+    },
+    {
+      "type": "urltest",
+      "tag": "日本_469138946ba5fa",
+      "outbounds": [
+        "直连_469138946ba5fa"
+      ],
+      "url": "http://cp.cloudflare.com/generate_204",
+      "interval": "10m0s",
+      "tolerance": 100
+    },
+    {
+      "type": "urltest",
+      "tag": "美国_469138946ba5fa",
+      "outbounds": [
+        "美国anytls-out-00da58635de04cf2b15dc16533490b50",
+        "美国tuic-out-81671726589f49f38af0b825ad5c5070",
+        "美国hysteria2-out-e6f7f413b8044269a680bff7a1c8860c",
+        "美国vless-out-70e40d1652f14dd3900d7fcc7dff2681",
+        "美国trojan-out-ed6d528caac3426fbb8c7b2ac2b6ca85",
+        "美国vmess-reality-out-459e0952630f496193e8b35e6650a827",
+        "美国vmess-ws-tls-out-7d58de79ff9b4b48a078676cef1d4c6e",
+        "美国vless-ws-out-4f54d00929834ea1bf89c9620eabb2e2"
+      ],
+      "url": "http://cp.cloudflare.com/generate_204",
+      "interval": "10m0s",
+      "tolerance": 100
+    },
+    {
+      "type": "urltest",
+      "tag": "韩国_469138946ba5fa",
+      "outbounds": [
+        "直连_469138946ba5fa"
+      ],
+      "url": "http://cp.cloudflare.com/generate_204",
+      "interval": "10m0s",
+      "tolerance": 100
+    },
+    {
+      "type": "urltest",
+      "tag": "香港_469138946ba5fa",
+      "outbounds": [
+        "直连_469138946ba5fa"
+      ],
+      "url": "http://cp.cloudflare.com/generate_204",
+      "interval": "10m0s",
+      "tolerance": 100
+    },
+    {
+      "type": "urltest",
+      "tag": "英国_469138946ba5fa",
+      "outbounds": [
+        "直连_469138946ba5fa"
+      ],
+      "url": "http://cp.cloudflare.com/generate_204",
+      "interval": "10m0s",
+      "tolerance": 100
+    },
+    {
+      "type": "urltest",
+      "tag": "加拿大_469138946ba5fa",
+      "outbounds": [
+        "直连_469138946ba5fa"
+      ],
+      "url": "http://cp.cloudflare.com/generate_204",
+      "interval": "10m0s",
+      "tolerance": 100
+    },
+    {
+      "type": "urltest",
+      "tag": "澳大利亚_469138946ba5fa",
+      "outbounds": [
+        "直连_469138946ba5fa"
+      ],
+      "url": "http://cp.cloudflare.com/generate_204",
+      "interval": "10m0s",
+      "tolerance": 100
+    },
+    {
+      "type": "urltest",
+      "tag": "法国_469138946ba5fa",
+      "outbounds": [
+        "直连_469138946ba5fa"
+      ],
+      "url": "http://cp.cloudflare.com/generate_204",
+      "interval": "10m0s",
+      "tolerance": 100
+    },
+    {
+      "type": "urltest",
+      "tag": "荷兰_469138946ba5fa",
+      "outbounds": [
+        "直连_469138946ba5fa"
+      ],
+      "url": "http://cp.cloudflare.com/generate_204",
+      "interval": "10m0s",
+      "tolerance": 100
+    },
+    {
+      "type": "urltest",
+      "tag": "德国_469138946ba5fa",
+      "outbounds": [
+        "直连_469138946ba5fa"
+      ],
+      "url": "http://cp.cloudflare.com/generate_204",
+      "interval": "10m0s",
+      "tolerance": 100
+    },
+    {
+      "type": "anytls",
+      "tag": "美国anytls-out-00da58635de04cf2b15dc16533490b50",
+      "server": "107.172.224.251",
+      "server_port": 30735,
+      "tls": {
+        "enabled": true,
+        "server_name": "fpinit.itunes.apple.com",
+        "insecure": false,
+        "utls": {
+          "enabled": true,
+          "fingerprint": "firefox"
+        },
+        "reality": {
+          "enabled": true,
+          "public_key": "N2sWNmPZ4m89pNeu_iJo-0t2E9ZhkX2DS9xyvutGaXA",
+          "short_id": "565fab93f4ae"
+        }
+      },
+      "password": "b6f55e91828f772fe173ef65"
+    },
+    {
+      "type": "tuic",
+      "tag": "美国tuic-out-81671726589f49f38af0b825ad5c5070",
+      "server": "107.172.224.251",
+      "server_port": 29838,
+      "uuid": "ac988576-6d91-4a57-9f4a-06f6200cbf9b",
+      "password": "c008f3a5b5e00a154e1f24b2",
+      "congestion_control": "bbr",
+      "tls": {
+        "enabled": true,
+        "server_name": "fpinit.itunes.apple.com",
+        "insecure": false,
+        "certificate": [
+          "-----BEGIN CERTIFICATE-----",
+          "MIIDSTCCAjGgAwIBAgIUBF+n9P51xUT+azjLxKb1mtKBuJQwDQYJKoZIhvcNAQEL",
+          "BQAwIjEgMB4GA1UEAwwXZnBpbml0Lml0dW5lcy5hcHBsZS5jb20wHhcNMjYwOTEz",
+          "MDkxMDUzWhcNMzYwOTEwMDkxMDUzWjAiMSAwHgYDVQQDDBdmcGluaXQuaXR1bmVz",
+          "LmFwcGxlLmNvbTCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBANVm8aPW",
+          "9X1wG3UfKNRxPp31JZxoYRxnWeXm5RYSmVaOwfVnPnMNpBnavAO0vDKlTdV/AHWK",
+          "uj/W0ufbGmuNeUGsvjo/1Tf2sjcuvlTEsyWyby/Rgqp9mU1/VT6WcqtHF/AqhBF/",
+          "krlXlGIf7AOsKpzPjzrms6HfhlAnb8ON5/vOgAeuwp4AigeISRRTnHzTrqs0cQ53",
+          "cPmg3dvjitDj+/OZ+cRk8VAkp1efhFWYrRD3FYKwpnGCS6nt09HT9D7ZyGXnXVmQ",
+          "sdSlWS2WBhRyWfSYpidBA4zpBZpwtyLnwDEJqeXzxQUe1/UJYS1OFNwdTBydEyI9",
+          "jdUym91QebMVVUUCAwEAAaN3MHUwHQYDVR0OBBYEFLtvlUjUNFnoornGvJNlgnjH",
+          "gNJAMB8GA1UdIwQYMBaAFLtvlUjUNFnoornGvJNlgnjHgNJAMA8GA1UdEwEB/wQF",
+          "MAMBAf8wIgYDVR0RBBswGYIXZnBpbml0Lml0dW5lcy5hcHBsZS5jb20wDQYJKoZI",
+          "hvcNAQELBQADggEBADb75GlVWcbCWrohdm6lY6LdCZ6zg2qMltwzVcpJsTzONoxD",
+          "3hn1vegt/0+nNM2V9SUCxUWFfr+AyeyanwPwqIDAy9QZB59EByr8P/kjcnrYmbEH",
+          "KNxCWqd/nQqPQcyf/C+Hb++J/tsVHsEO6QvclaKEO0l6PEOxS5T/EXo1Vo2d8R40",
+          "/Tm8EmqGkDK8O+7sIRtJlLJKm38rf400e2Jqv+prmVdgUNS8EbgG9X2vef89tEgn",
+          "yZVjFJygAKgsF19lHhvCJ8GmmG9A487sOlNJAbnwL5g9iiJfx5gbNyFrCbi54N4u",
+          "M1SYtylGIE23nuZNdPIoStv0fY/uNIPY8BAvtwk=",
+          "-----END CERTIFICATE-----"
+        ],
+        "alpn": [
+          "h3"
+        ]
+      }
+    },
+    {
+      "type": "hysteria2",
+      "tag": "美国hysteria2-out-e6f7f413b8044269a680bff7a1c8860c",
+      "server": "107.172.224.251",
+      "server_port": 28676,
+      "password": "d586fe9f28bc0df3cd2bf41d",
+      "obfs": {
+        "type": "salamander",
+        "password": "b9968ab186c5eba68d36efe6"
+      },
+      "tls": {
+        "enabled": true,
+        "server_name": "fpinit.itunes.apple.com",
+        "insecure": false,
+        "certificate": [
+          "-----BEGIN CERTIFICATE-----",
+          "MIIDSTCCAjGgAwIBAgIUBF+n9P51xUT+azjLxKb1mtKBuJQwDQYJKoZIhvcNAQEL",
+          "BQAwIjEgMB4GA1UEAwwXZnBpbml0Lml0dW5lcy5hcHBsZS5jb20wHhcNMjYwOTEz",
+          "MDkxMDUzWhcNMzYwOTEwMDkxMDUzWjAiMSAwHgYDVQQDDBdmcGluaXQuaXR1bmVz",
+          "LmFwcGxlLmNvbTCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBANVm8aPW",
+          "9X1wG3UfKNRxPp31JZxoYRxnWeXm5RYSmVaOwfVnPnMNpBnavAO0vDKlTdV/AHWK",
+          "uj/W0ufbGmuNeUGsvjo/1Tf2sjcuvlTEsyWyby/Rgqp9mU1/VT6WcqtHF/AqhBF/",
+          "krlXlGIf7AOsKpzPjzrms6HfhlAnb8ON5/vOgAeuwp4AigeISRRTnHzTrqs0cQ53",
+          "cPmg3dvjitDj+/OZ+cRk8VAkp1efhFWYrRD3FYKwpnGCS6nt09HT9D7ZyGXnXVmQ",
+          "sdSlWS2WBhRyWfSYpidBA4zpBZpwtyLnwDEJqeXzxQUe1/UJYS1OFNwdTBydEyI9",
+          "jdUym91QebMVVUUCAwEAAaN3MHUwHQYDVR0OBBYEFLtvlUjUNFnoornGvJNlgnjH",
+          "gNJAMB8GA1UdIwQYMBaAFLtvlUjUNFnoornGvJNlgnjHgNJAMA8GA1UdEwEB/wQF",
+          "MAMBAf8wIgYDVR0RBBswGYIXZnBpbml0Lml0dW5lcy5hcHBsZS5jb20wDQYJKoZI",
+          "hvcNAQELBQADggEBADb75GlVWcbCWrohdm6lY6LdCZ6zg2qMltwzVcpJsTzONoxD",
+          "3hn1vegt/0+nNM2V9SUCxUWFfr+AyeyanwPwqIDAy9QZB59EByr8P/kjcnrYmbEH",
+          "KNxCWqd/nQqPQcyf/C+Hb++J/tsVHsEO6QvclaKEO0l6PEOxS5T/EXo1Vo2d8R40",
+          "/Tm8EmqGkDK8O+7sIRtJlLJKm38rf400e2Jqv+prmVdgUNS8EbgG9X2vef89tEgn",
+          "yZVjFJygAKgsF19lHhvCJ8GmmG9A487sOlNJAbnwL5g9iiJfx5gbNyFrCbi54N4u",
+          "M1SYtylGIE23nuZNdPIoStv0fY/uNIPY8BAvtwk=",
+          "-----END CERTIFICATE-----"
+        ],
+        "alpn": [
+          "h3"
+        ]
+      }
+    },
+    {
+      "type": "vless",
+      "tag": "美国vless-out-70e40d1652f14dd3900d7fcc7dff2681",
+      "server": "107.172.224.251",
+      "server_port": 28676,
+      "uuid": "0c3d89de-16e6-441a-ae98-a5bb2519054f",
+      "flow": "xtls-rprx-vision",
+      "packet_encoding": "xudp",
+      "tls": {
+        "enabled": true,
+        "server_name": "fpinit.itunes.apple.com",
+        "insecure": false,
+        "utls": {
+          "enabled": true,
+          "fingerprint": "firefox"
+        },
+        "reality": {
+          "enabled": true,
+          "public_key": "N2sWNmPZ4m89pNeu_iJo-0t2E9ZhkX2DS9xyvutGaXA",
+          "short_id": "3dee80b8"
+        }
+      }
+    },
+    {
+      "type": "trojan",
+      "tag": "美国trojan-out-ed6d528caac3426fbb8c7b2ac2b6ca85",
+      "server": "107.172.224.251",
+      "server_port": 20510,
+      "password": "02220ac91cbf4cc6833daed4",
+      "tls": {
+        "enabled": true,
+        "server_name": "fpinit.itunes.apple.com",
+        "insecure": false,
+        "utls": {
+          "enabled": true,
+          "fingerprint": "firefox"
+        },
+        "reality": {
+          "enabled": true,
+          "public_key": "N2sWNmPZ4m89pNeu_iJo-0t2E9ZhkX2DS9xyvutGaXA",
+          "short_id": "c0159e9599c3"
+        }
+      }
+    },
+    {
+      "type": "vmess",
+      "tag": "美国vmess-reality-out-459e0952630f496193e8b35e6650a827",
+      "server": "107.172.224.251",
+      "server_port": 44661,
+      "uuid": "df1eb635-ae3f-4d54-90a7-9e13d2cadb8e",
+      "security": "auto",
+      "packet_encoding": "xudp",
+      "tls": {
+        "enabled": true,
+        "server_name": "fpinit.itunes.apple.com",
+        "insecure": false,
+        "utls": {
+          "enabled": true,
+          "fingerprint": "firefox"
+        },
+        "reality": {
+          "enabled": true,
+          "public_key": "N2sWNmPZ4m89pNeu_iJo-0t2E9ZhkX2DS9xyvutGaXA",
+          "short_id": "3404"
+        }
+      }
+    },
+    {
+      "type": "vmess",
+      "tag": "美国vmess-ws-tls-out-7d58de79ff9b4b48a078676cef1d4c6e",
+      "server": "107.172.224.251",
+      "server_port": 29838,
+      "uuid": "8f9d97b7-bd2f-47b5-a873-d1536cf58dc7",
+      "security": "auto",
+      "packet_encoding": "xudp",
+      "tls": {
+        "enabled": true,
+        "server_name": "fpinit.itunes.apple.com",
+        "insecure": true,
+        "alpn": [
+          "http/1.1"
+        ]
+      },
+      "transport": {
+        "type": "ws",
+        "path": "/f63d92c6a6f0",
+        "headers": {
+          "Host": "fpinit.itunes.apple.com"
+        },
+        "early_data_header_name": "Sec-WebSocket-Protocol"
+      }
+    },
+    {
+      "type": "vless",
+      "tag": "美国vless-ws-out-4f54d00929834ea1bf89c9620eabb2e2",
+      "server": "107.172.224.251",
+      "server_port": 42969,
+      "uuid": "823c1c2d-2e5c-41a1-b3b1-dd20f5382cfd",
+      "packet_encoding": "xudp",
+      "transport": {
+        "type": "ws",
+        "path": "/5b25d2b14a4a",
+        "headers": {
+          "Host": "fpinit.itunes.apple.com"
+        }
+      }
+    }
+  ],
+  "route": {
+    "rules": [
+      {
+        "port": [
+          993,
+          143,
+          995,
+          110,
+          465,
+          25,
+          994
+        ],
+        "domain_suffix": [
+          ".126.com",
+          ".163.com",
+          ".netease.com",
+          ".126.net",
+          ".163.net",
+          ".year.net"
+        ],
+        "ip_cidr": [
+          "117.135.214.14",
+          "111.124.203.46",
+          "111.124.203.51",
+          "220.197.33.211"
+        ],
+        "outbound": "代理_469138946ba5fa"
+      },
+      {
+        "package_name": [
+          "com.duolingo"
+        ],
+        "outbound": "代理_469138946ba5fa"
+      },
+      {
+        "rule_set": "geosite-duolingo",
+        "outbound": "代理_469138946ba5fa"
+      },
+      {
+        "protocol": "dns",
+        "action": "hijack-dns"
+      },
+      {
+        "port": 53,
+        "action": "hijack-dns"
+      },
+      {
+        "process_name": [
+          "sing-box.exe",
+          "sing-box",
+          "io.nekohasekai.sfa"
+        ],
+        "outbound": "直连_469138946ba5fa"
+      },
+      {
+        "rule_set": [
+          "geosite-category-ads-all",
+          "megamori"
+        ],
+        "action": "reject"
+      },
+      {
+        "domain": [
+          "books-analytics-events.apple.com",
+          "pagead2.googlesyndication.com",
+          "pagead2.googleadservices.com",
+          "afs.googlesyndication.com",
+          "stats.g.doubleclick.net",
+          "ad.doubleclick.net",
+          "stats.wp.com",
+          "trk.pinterest.com",
+          "ads.yahoo.com",
+          "analytics.query.yahoo.com",
+          "partnerads.ysm.yahoo.com",
+          "api.ad.xiaomi.com",
+          "data.mistat.xiaomi.com",
+          "sdkconfig.ad.xiaomi.com",
+          "business-api.tiktok.com",
+          "grs.hicloud.com"
+        ],
+        "action": "reject"
+      },
+      {
+        "inbound": [
+          "混合入站_469138946ba5fa",
+          "TUN入站_469138946ba5fa"
+        ],
+        "action": "sniff"
+      },
+      {
+        "ip_is_private": true,
+        "outbound": "直连_469138946ba5fa"
+      },
+      {
+        "rule_set": "geosite-cn",
+        "outbound": "直连_469138946ba5fa"
+      },
+      {
+        "rule_set": "geoip-cn",
+        "outbound": "直连_469138946ba5fa"
+      },
+      {
+        "rule_set": "geosite-openai",
+        "outbound": "智能_469138946ba5fa"
+      },
+      {
+        "rule_set": "geosite-geolocation-!cn",
+        "outbound": "代理_469138946ba5fa"
+      }
+    ],
+    "rule_set": [
+      {
+        "type": "remote",
+        "tag": "geoip-cn",
+        "format": "binary",
+        "url": "https://raw.githubusercontent.com/SagerNet/sing-geoip/rule-set/geoip-cn.srs",
+        "http_client": "全局HTTP客户端路由代理",
+        "update_interval": "24h0m0s"
+      },
+      {
+        "type": "remote",
+        "tag": "geosite-private",
+        "format": "binary",
+        "url": "https://raw.githubusercontent.com/SagerNet/sing-geosite/rule-set/geosite-private.srs",
+        "http_client": "全局HTTP客户端路由代理",
+        "update_interval": "24h0m0s"
+      },
+      {
+        "type": "remote",
+        "tag": "geosite-cn",
+        "format": "binary",
+        "url": "https://raw.githubusercontent.com/SagerNet/sing-geosite/rule-set/geosite-cn.srs",
+        "http_client": "全局HTTP客户端路由代理",
+        "update_interval": "24h0m0s"
+      },
+      {
+        "type": "remote",
+        "tag": "geosite-geolocation-!cn",
+        "format": "binary",
+        "url": "https://raw.githubusercontent.com/SagerNet/sing-geosite/rule-set/geosite-geolocation-!cn.srs",
+        "http_client": "全局HTTP客户端路由代理",
+        "update_interval": "24h0m0s"
+      },
+      {
+        "type": "remote",
+        "tag": "geosite-category-ads-all",
+        "format": "binary",
+        "url": "https://raw.githubusercontent.com/SagerNet/sing-geosite/rule-set/geosite-category-ads-all.srs",
+        "http_client": "全局HTTP客户端路由代理",
+        "update_interval": "24h0m0s"
+      },
+      {
+        "type": "remote",
+        "tag": "megamori",
+        "format": "binary",
+        "url": "https://raw.githubusercontent.com/neomikanagi/megamori/main/megamori.srs",
+        "http_client": "全局HTTP客户端路由代理",
+        "update_interval": "24h0m0s"
+      },
+      {
+        "type": "remote",
+        "tag": "geosite-openai",
+        "format": "binary",
+        "url": "https://raw.githubusercontent.com/SagerNet/sing-geosite/rule-set/geosite-openai.srs",
+        "http_client": "全局HTTP客户端路由代理",
+        "update_interval": "24h0m0s"
+      },
+      {
+        "type": "remote",
+        "tag": "geosite-duolingo",
+        "format": "binary",
+        "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geosite/duolingo.srs",
+        "http_client": "全局HTTP客户端路由代理",
+        "update_interval": "24h0m0s"
+      }
+    ],
+    "final": "代理_469138946ba5fa",
+    "auto_detect_interface": true,
+    "default_domain_resolver": "解析CLOUDFLAREDNS_469138946ba5fa",
+    "default_http_client": "全局HTTP客户端路由DEFAULT"
+  },
+  "experimental": {
+    "cache_file": {
+      "enabled": true,
+      "path": "sing-box-cache.db",
+      "store_fakeip": true,
+      "store_dns": true
+    },
+    "clash_api": {
+      "external_controller": ":9999",
+      "external_ui": "ui",
+      "external_ui_download_url": "https://github.com/Zephyruso/zashboard/releases/latest/download/dist.zip",
+      "external_ui_download_detour": "代理_469138946ba5fa"
+    }
+  }
+}

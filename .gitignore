@@ -1,0 +1,19 @@
+# 编译产物——不进仓库，交给 GitHub Releases / Actions 构建
+/provision
+/provision-*
+*.exe
+
+# 每个 cmd/verify* 工具运行时会在仓库根目录写的临时产物
+/generated_*.json
+/generated_*.txt
+
+# macOS
+.DS_Store
+
+# 常见 IDE/编辑器
+.vscode/
+.idea/
+
+# Go 测试/构建缓存（正常不会跑到仓库目录里，保险起见排除）
+*.test
+*.out
