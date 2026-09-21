@@ -1,18 +1,34 @@
+# 忽略 python 缓存文件
+__pycache__
+# 忽略 python 缓存文件
+__pycache__
+# 忽略 python 缓存文件
+__pycache__
+# 忽略 macOS 系统文件
+.DS_Store
+# 忽略环境配置文件
+.env
+# 忽略所有的日志文件
+*.log
+# 忽略临时文件夹
+/tmp/
+# 常见 IDE/编辑器
+.vscode/
+.idea/
+# 忽略 ipynb_checkpoints 项目配置文件夹
+.ipynb_checkpoints/
+# 忽略项目忽略文件自身和项目属性文件
+.gitignore
+.gitattributes
+
 # 编译产物——不进仓库，交给 GitHub Releases / Actions 构建
-/provision
-/provision-*
-*.exe
+#/provision
+#/provision-*
+#*.exe
 
 # 每个 cmd/verify* 工具运行时会在仓库根目录写的临时产物
 /generated_*.json
 /generated_*.txt
-
-# macOS
-.DS_Store
-
-# 常见 IDE/编辑器
-.vscode/
-.idea/
 
 # Go 测试/构建缓存（正常不会跑到仓库目录里，保险起见排除）
 *.test
